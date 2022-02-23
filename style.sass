@@ -1,0 +1,70 @@
+// Läs om Sass här https://sass-lang.com/
+// Rekommenderade VSCode Extensions för att jobba med Sass
+//   Formatering: "Sass" av Styler
+//   Live-generering av CSS från Sass-kod: Live Sass Compiler av Ritwick Dey 
+
+// Det här är Sass-variabler  
+$font-stack: Helvetica, sans-serif
+$primary-color: #333
+$bg-color: #ccc
+
+// Detta är en mixin, det är en "funktion" man kan anropa med parametrar. 
+@mixin transition($property, $duration, $style)
+  transition: $property $duration $style
+
+// Det här är en mall som kan användas med extend. Det är lite som en mixin men utan parametrar.
+%basic-button
+  font-family: Arial, Helvetica, sans-serif
+  padding: 10px
+  margin: 5px
+  border: none
+  border-radius: 5px
+  color: #eee
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+  background-color: $bg-color
+  margin: 0
+
+  // Den här stylen är "nestad" i <body> och kommer bara gälla <h1> som ligger i <body>
+  h1
+    font-family: Arial, Helvetica, sans-serif
+
+  main
+    max-width: 1000px
+    background-color: white
+
+.primary
+  @extend %basic-button
+  background-color: slateblue
+
+.secondary
+  @extend %basic-button
+  background-color: #ccc
+  color: black
+
+.warn
+  @extend %basic-button
+  background-color: orange
+
+.danger
+  @extend %basic-button
+  background-color: red
+
+div.card
+  @include transition(all, 0.3s, ease-out)
+  background-color: $primary-color
+  width: 40%
+  border-radius: 10px
+  padding: 20px
+  color: yellow
+
+  // & används för att referera till elementet som den här regeln är nestad under.
+  // CSS-selektorn som är resultatet av den här regeln blir = div.card:hover 
+  &:hover
+    background-color: lighten($primary-color, 30%)
+
+  // Denna nestade regel gäller endast <h2> som ligger i <div class="card">
+  h2
+    color: white
